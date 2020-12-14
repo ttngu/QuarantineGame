@@ -6,6 +6,7 @@
     <title>Quarantine Game</title>
 
     <!-- CSS -->
+    <link rel="stylesheet" href="./stylesheets/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 </head>
@@ -29,27 +30,71 @@
   </nav>
 
 <body>
+  <!-- Add conatiner to hold everything -->
+  <div class="container">
     <!-- Add div to hold main card -->
     <div class="row">
+      <div class="col-sm-12">
         <!-- Add Card -->
         <div class="card">
-            <h5 class="card-header">Featured</h5>
+          <!-- Insert Header -->
+          <h5 class="card-header">Welcome to the Quarantine Game!</h5>
             <div class="card-body">
-              <h5 class="card-title">Special title treatment</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-            <!-- Insert Header -->
-            <!-- Text asking for username -->
-            <!-- Input box for username -->
-            <!-- Create 2 buttons -->
-                <!-- "Create a Lobby" button -->
-                <!-- "Join a Lobby" button -->
-    </div>
+              <!-- Text asking for username -->
+              <h5 class="card-title">Enter a Username:</h5>
 
+              <!-- Input box for username -->
+              <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                  
+                </div>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+              </div>
+
+              <!-- Title for Avatar -->
+              <h5 class="avatar-select">Choose an Avatar:</h5>
+              <!-- Form to select an avatar-->
+              <!-- add data attritbutes to avatars -->
+              <div class="avatar-img d-flex flex-wrap">
+                <p>
+                <img class="mr-2 mb-2" data="thing1" src="https://picsum.photos/201" alt="Placeholder" height="50rem" width="50rem">
+
+                <img class="mr-2 mb-2" data="thing2" src="https://picsum.photos/202" alt="Placeholder" height="50rem" width="50rem">
+
+                <img class="mr-2 mb-2" data="thing3" src="https://picsum.photos/203" alt="Placeholder" height="50rem" width="50rem">
+
+                <img class="mr-2 mb-2" data="thing4" src="https://picsum.photos/204" alt="Placeholder" height="50rem" width="50rem">
+                
+                <img class="mr-2 mb-2" data="thing5" src="https://picsum.photos/205" alt="Placeholder" height="50rem" width="50rem">
+
+                <br>
+
+                <img class="mr-2 mb-2" data="thing6" src="https://picsum.photos/206" alt="Placeholder" height="50rem" width="50rem">
+
+                <img class="mr-2 mb-2" data="thing7" src="https://picsum.photos/207" alt="Placeholder" height="50rem" width="50rem">
+
+                <img class="mr-2 mb-2" data="thing8" src="https://picsum.photos/208" alt="Placeholder" height="50rem" width="50rem">
+
+                <img class="mr-2 mb-2" data="thing9" src="https://picsum.photos/209" alt="Placeholder" height="50rem" width="50rem">
+
+                <img class="mr-2 mb-2" data="thing10" src="https://picsum.photos/210" alt="Placeholder" height="50rem" width="50rem">
+                </p>  
+               </div>
+              
+              <!-- Create 2 buttons -->
+                  <!-- "Create a Lobby" button -->
+                  <button type="button" class="btn btn-secondary">Create a Lobby</button>
+                  <!-- "Join a Lobby" button -->
+                  <button type="button" class="btn btn-secondary">Join a Lobby</button> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
     <!-- Add Footer -->
+    <footer class="fixed-bottom d-flex justify-content-center p-2 text-primary">Made out of boredom, for boredom.
+    </footer>
 
     <!-- JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
