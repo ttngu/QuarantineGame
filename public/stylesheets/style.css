@@ -16,10 +16,6 @@
   align-items: center;
 }
 
-ul.score-list {
-  list-style-type: none; /* Remove bullets */
-}
-
 .bg-card-1, .bg-card-2 {
   margin-top: 2rem;
   height: 30rem;
