@@ -55,6 +55,6 @@ io.on('connection', function(socket){
   });
   //placeholder update scoreboard
   socket.on('updateUserList', (userArr) => {
-    io.to(lobbyCode).emit('updateUserList', userArr)
+    io.to(lobbyCode).emit('updateUserListReturn', userArr)
   });
 });
