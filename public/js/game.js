@@ -1,6 +1,8 @@
 var socket = io();
 var userList = [];
+var deck = [];
 var sidePanel = $(".sidepanel")
+
 
 function createGameLobby(userList) {
     // Create a unique Socket.IO Room    
@@ -34,9 +36,36 @@ function renderUser() {
 
     for (let i = 0; i < userList.length; i++){
         let placeholderHtml = `<p><img src='./assets/images/${userList[i].avatar}.jpeg'>${userList[i].name} / ${userList[i].score}</p>
-        <button type="button" id="${userList[i].id}" >Vote</button>`
+        <button type="button" id="${i}" >Vote</button>`
         sidePanel.append(placeholderHtml);
     }
+}
+
+function createDeck() {
+    $.get("/api/cards/1", function(data) {       
+        if (data.length !== 0) {      
+          for (var i = 0; i < data.length; i++) {
+            deck.push(data[i]);
+          }      
+        }
+        if(deck.length > 0){
+            testFunction2();   
+        }   
+      });
+}
+
+function startGame() {
+    socket.emit("startGame", userList);
+}
+
+socket.on("startGameReturn", userList => {
+    userList = userList
+    drawCard();
+})
+
+
+function endGame() {
+
 }
 
 $(document).ready(function() {
@@ -45,6 +74,7 @@ $(document).ready(function() {
         localStorage.removeItem("newLobby");
         myModal.show();
         createGameLobby(userArr);
+        createDeck();
     }
     if(localStorage.getItem("joinLobby")){
         let newUser = JSON.parse(localStorage.getItem("joinLobby"))[0];
@@ -58,6 +88,7 @@ $(document).ready(function() {
         }
         joinGameLobby(lobbyCode);
     }
+    $("#startGame").click(() => startGame())
 })
 
 const renderUserList = (userList) => {
