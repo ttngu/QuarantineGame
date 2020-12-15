@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Score Page</title>
     <!-- Add CSS -->
+    <link rel="stylesheet" href="./stylesheets/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
@@ -16,10 +17,10 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-          <a class="nav-item nav-link active" href="#">Home</a>
+          <a class="nav-item nav-link " href="#">Home</a>
           <a class="nav-item nav-link" href="#">About</a>
         <a class="nav-item nav-link" href="#">Game</a>
-        <a class="nav-item nav-link" href="#">Score<span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link active" href="#">Score<span class="sr-only">(current)</span></a>
         <a class="nav-item nav-link" href="#">Help</a>
         
       </div>
@@ -27,13 +28,27 @@
   </nav>
 <body>
 <body>
-    <!-- Row 1 -->
-    <div class= "row">
-        <!-- Add card for 'Scoreboard' -->
-        <!-- Title goes here -->
-        <!-- Score text goes here -->ut tex
-    </div>
-    
+    <div class="container">
+        <!-- Add div to hold main card -->
+        <div class="row">
+          <div class="col-sm-12">
+              <!-- Add card here -->
+              <div class="card">
+                    <!-- Insert Header -->
+                    <h5 class="card-header">Score Board</h5>
+                    <div class="card-body">
+                       <div id="scoreboard">
+                         <ul>
+                           <li>Score 1</li>
+                           <li>Score 2</li>
+                           <li>Score 3</li>
+                         </ul>
+                       </div>
+                    </div>
+              </div>
+          </div>
+        </div> 
+    </div>        
     <!-- Add footer -->
     <footer class="fixed-bottom d-flex justify-content-center p-2 text-primary">Made out of boredom, for boredom.
     </footer>
