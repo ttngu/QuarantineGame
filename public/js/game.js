@@ -1,4 +1,6 @@
 var socket = io();
+var userList = [];
+var sidePanel = $(".sidepanel")
 
 function createGameLobby(userList) {
     // Create a unique Socket.IO Room    
@@ -11,14 +13,38 @@ function createGameLobby(userList) {
         thisGameId += idArr[i];
     }while(thisGameId.length<8);
     let data = {gameId: thisGameId, socketId: socket.id}
-    socket.emit('newGameLobby', data);     
+    socket.emit('newGameLobby', data);   
     
 };
+
+function updateUser(userList){
+    socket.emit('updateUserList', userList)
+}
+
+function getUser() {
+    socket.on('updateUserListReturn', users => {
+        userList = users
+        renderUser();
+    })
+}
+
+function renderUser() {
+
+    sidePanel.text("")
+
+    for (let i = 0; i < userList.length; i++){
+        let placeholderHtml = `<p><img src='./assets/images/${userList[i].avatar}.jpeg'>${userList[i].name} / ${userList[i].score}</p>
+        <button type="button" id="${userList[i].id}" >Vote</button>`
+        sidePanel.append(placeholderHtml);
+    }
+}
+
 $(document).ready(function() {
     if(localStorage.getItem("newLobby")){
         let userArr = JSON.parse(localStorage.getItem("newLobby"));
         localStorage.removeItem("newLobby");
-        // createGameLobby(userArr);
+        myModal.show();
+        createGameLobby(userArr);
     }
     if(localStorage.getItem("joinLobby")){
         let newUser = JSON.parse(localStorage.getItem("joinLobby"))[0];
@@ -63,7 +89,6 @@ var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {
     backdrop: 'static',
     keyboard: false
     })
-    myModal.show();
     $(document).ready(function() {
       const valueSpan = $('.valueSpan');
       const value = $('#rounds');
