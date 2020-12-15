@@ -9,3 +9,24 @@
 .avatar-img {
     align-items: center;
 }
+
+.bg-card-1, .bg-card-2 {
+    height: 30rem;
+    width: 19rem;
+    background-color: white;
+    border-radius: 1rem;
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
+    transform: rotate(10deg);
+  }
+.bg-card-3 {
+    height: 30rem;
+    width: 19rem;
+    background-color: #f7e6a6;
+    border-radius: 1rem;
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
+    transform: rotate(-20deg);
+  }
