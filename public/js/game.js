@@ -2,7 +2,9 @@ var socket = io();
 var userList = [];
 var deck = [];
 var sidePanel = $(".sidepanel")
-
+const valueSpan = $('.valueSpan');
+const rounds = $('#rounds');
+const roundsNumber = 0
 
 function createGameLobby(userList) {
     // Create a unique Socket.IO Room    
@@ -76,6 +78,10 @@ $(document).ready(function() {
         createGameLobby(userArr);
         createDeck();
     }
+    $("#lobbycreate").click(() => {
+        myModal.hide()
+        roundsNumber = rounds.val();
+    })
     if(localStorage.getItem("joinLobby")){
         let newUser = JSON.parse(localStorage.getItem("joinLobby"))[0];
         let lobbyCode = JSON.parse(localStorage.getItem("joinLobby"))[1];
@@ -121,11 +127,9 @@ var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {
     keyboard: false
     })
     $(document).ready(function() {
-      const valueSpan = $('.valueSpan');
-      const value = $('#rounds');
-      valueSpan.html(value.val());
-      value.on('input change', () => {
-      valueSpan.html(value.val());
+      valueSpan.html(rounds.val());
+      rounds.on('input change', () => {
+      valueSpan.html(rounds.val());
     });
 });
 
