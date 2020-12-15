@@ -59,6 +59,20 @@ const testFunction2 = () => {
     // $('.bg-card-3').append(html)
 }
 
+var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {
+    backdrop: 'static',
+    keyboard: false
+    })
+    myModal.show();
+    $(document).ready(function() {
+      const valueSpan = $('.valueSpan');
+      const value = $('#rounds');
+      valueSpan.html(value.val());
+      value.on('input change', () => {
+      valueSpan.html(value.val());
+    });
+});
+
 socket.on('drawCardReturn', (html) => {
     console.log("test");
     $('.bg-card-3').text("");
@@ -66,3 +80,4 @@ socket.on('drawCardReturn', (html) => {
 })
 
 testFunction();
+

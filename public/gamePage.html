@@ -40,23 +40,30 @@
       <!-- This is the main column and will hold the cards -->
       <div class="col-sm-4">
 
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">We need some info</h5>
+              </div>
+              <div class="modal-body">
+                <label for="rounds" class="form-label">Rounds</label>
+                <input type="range" class="form-range" min="5" max="50" step="5" id="rounds"><span class="valueSpan"></span>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="">Submit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
           <!-- These are the background card CSS images -->
           <div class="bg-card-1">
             <div class="bg-card-2">
               <div class="bg-card-3">
               </div>
             </div>
-          </div>
-        <form>
-          <div class="mb-3">
-          <label for="username" class="form-label">Username</label>
-          <input type="username" class="form-control" id="username" aria-describedby="usernameInput">
-          </div>
-          <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
-            <input type="username" class="form-control" id="username" aria-describedby="usernameInput">
-            </div>
-        </form>      
+          </div>    
 
       </div>
       <!-- Column 3 -->
@@ -116,11 +123,12 @@
     </footer>
     
     <!-- Add JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="./js/game.js"></script>
+
     
 </body>
 </html>
