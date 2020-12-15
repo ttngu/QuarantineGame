@@ -9,10 +9,15 @@
 .card {
   text-align: center;
   box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
+ 
 }
 
 .avatar-img {
   align-items: center;
+}
+
+ul.score-list {
+  list-style-type: none; /* Remove bullets */
 }
 
 .bg-card-1, .bg-card-2 {
