@@ -66,8 +66,15 @@ h5 {
   border-radius: 1rem;
   border: 1px solid;
   padding: 10px;
-  box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
+  box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.9);
   transform: rotate(10deg);
+}
+.bg-card-1{
+  background-color: #f9dbd2;
+}
+
+.bg-card-2 {
+  background-color: #cee1f4;
 }
 
 .bg-card-3 {
@@ -75,11 +82,11 @@ h5 {
   margin-left: -2rem;
   height: 30rem;
   width: 19rem;
-  background-color: #f7e6a6;
+  background-color: #e6edb7;
   border-radius: 1rem;
   border: 1px solid;
   padding: 10px;
-  box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
+  box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.9);
   transform: rotate(-20deg);
   /* animation: flipOutY; referring directly to the animation's @keyframe declaration */
   animation-duration: 2s; /* don't forget to set a duration! */
@@ -97,6 +104,12 @@ h5 {
   text-align: left;
   margin-left: 2rem;
   margin-bottom: 2rem;
+}
+
+.btn-danger {
+  color: #fff;
+  background-color: #7b77a7;
+  border-color: #675e84;
 }
 
 .footer {
