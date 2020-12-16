@@ -62,6 +62,22 @@ h5 {
   letter-spacing: .15rem;
 }
 
+.modal-content {
+  border-radius: .5rem;
+  border: 1px solid;
+  box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
+}
+
+.modal-header {
+  background-color: #fce0a2;
+}
+
+#lobbycreate {
+  color: #fff;
+  background-color: #9ca4ac;
+  border-color: #675e84;
+  box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.5);
+}
 
 .bg-card-1, .bg-card-2 {
   margin-top: 2rem;
@@ -143,3 +159,4 @@ h5 {
 .navbar-toggler {
   z-index: 2;
 }
+
