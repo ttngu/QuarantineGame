@@ -7,6 +7,11 @@
   width: 97vw;
   position: absolute;
   top: 0;
+  z-index: 1;
+}
+
+.nav-link {
+  z-index: 2;
 }
 
 .navbar-brand img {
