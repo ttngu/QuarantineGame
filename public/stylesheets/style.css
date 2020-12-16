@@ -1,7 +1,7 @@
 body{
   font-family: 'Montserrat', sans-serif;
   background-color: transparent;
-  background-image: url(/public/images/bg1.png);
+  background-image: url(./images/bg1.png);
   background-size: cover;
 }
 
