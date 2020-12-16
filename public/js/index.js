@@ -36,7 +36,7 @@ $(document).ready(function() {
     console.log($(this).val());
     value.change(function() {
         if($(this).val() !== "Choose Your Avatar"){
-            valueSpan.html(`<img src="/images/${$(this).val()}.png">`);
+            valueSpan.html(`<img src="/images/avatar-icons/${$(this).val()}.png">`);
         }
     }).change();
   });
