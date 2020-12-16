@@ -57,4 +57,8 @@ io.on('connection', function(socket){
   socket.on('updateUserList', (userArr) => {
     io.to(lobbyCode).emit('updateUserListReturn', userArr)
   });
+
+  socket.on('startGame', (userStart) => {
+    io.to(lobbyCode).emit('startGameReturn', userStart)
+  })
 });
