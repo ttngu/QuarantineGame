@@ -1,6 +1,20 @@
+body{
+  font-family: 'Montserrat', sans-serif;
+  background-color: transparent;
+  background-image: url(/public/images/bg1.png);
+  background-size: cover;
+}
+
+h5 {
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: .15rem;
+  font-weight: 100;
+}
+
 .navbar{
   box-shadow: 0px 8px 8px -6px rgba(0,0,0,.5);
   height: 5rem;
+  letter-spacing: .15rem;
 }
 
 .navbar-brand {
@@ -26,15 +40,21 @@
 .card {
   text-align: center;
   box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
+  margin-bottom: 1.5rem;
+}
+
+.card-header {
+  background-color: #f2d79d;
+  font-weight: 100;
+  letter-spacing: .25rem;
+
+}
+
+.create {
   margin-top: 1.5rem;
 }
 
-
-.create-lobby-btn {
-  margin-top: 1.5rem;
-}
-
-.join-lobby-btn {
+.join {
   margin-top: 1.5rem;
 }
 
@@ -61,6 +81,8 @@
   padding: 10px;
   box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
   transform: rotate(-20deg);
+  /* animation: flipOutY; referring directly to the animation's @keyframe declaration */
+  animation-duration: 2s; /* don't forget to set a duration! */
 }
 
 .user-pannel {
