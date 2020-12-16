@@ -85,6 +85,14 @@ h5 {
   animation-duration: 2s; /* don't forget to set a duration! */
 }
 
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-70%) translateX(80%);
+}
+
 .user-pannel {
   text-align: left;
   margin-left: 2rem;
