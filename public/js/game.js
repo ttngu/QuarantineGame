@@ -6,11 +6,13 @@ var round = 10;
 var score = 0;
 var deck = [];
 var usedDeck = [];
+var voting = [];
 var cons = "points";
-var sidePanel = $(".sidepanel")
 var thisGameId = "";
 var socketId = "";
-var allVoted = false;
+let roundsNumber = 0;
+let voteButtons = $('.voteBtn');
+const sidePanel = $(".sidepanel")
 const valueSpan = $('.valueSpan');
 const rounds = $('#rounds');
 const consVal = $('#cons')
@@ -19,9 +21,8 @@ const scoreDisp = $('#scoreDisp');
 const startButton = $('#startGame');
 const lobbyDisp = $('#lobbyDisp');
 const topCard = $('.bg-card-3');
-const voteButtons = $('.voteBtn');
 const timerDisp = $('#countdown');
-let roundsNumber = 0;
+const winnerDisp = $('#winnerDisp');
 
 //add socket id to userlist array
 //add disconnect check and remove from userlist
@@ -103,20 +104,48 @@ socket.on("startGameReturn", (i) => {
 })
 
 function startVoting(){
+    voteButtons = $('.voteBtn');
     voteButtons.attr("style","display:inline-block");
     let timer = 30;
     let countdown = setInterval(function(){
         timerDisp.html(timer);  
          timer--;
-         if(timer <= 0 || allVoted){
+         if(timer < 0 || voting.length === userList.length){
              clearInterval(countdown);
+             endVoting();
+             timerDisp.html("");
          }
         }, 1000);
 }
 
-voteButtons.click(() => {
-    voteButtons.this.id.attr("style","display:none");
-    
+function endVoting(){
+    let result = Array(userList.length).fill(0);
+    voting.forEach(e => {
+        result[e[1]]++;
+    })
+    voting = [];
+    announceWinner(result);
+}
+
+function announceWinner(result){
+    let i = result.indexOf(Math.max(...result));
+    console.log(`${userList[i].name} is the "winner"`)
+    startGame();
+}
+
+$(document).on("click", '.voteBtn', (function() {  
+    console.log("vote cast");
+    var id = $(this).attr('id');    
+    voteButtons.attr("style","display:none");
+    sendVote(id);
+}));
+
+function sendVote(id){
+    socket.emit('sendVote', {user: userId, vote: id, code: thisGameId});
+}
+
+socket.on('userVoted', input =>{
+    voting.push([input.user,parseInt(input.vote)])
 })
 
 function endGame() {    
@@ -148,6 +177,7 @@ function updateUser(user){
         if(status==="success"){
             if(userList.length<8){
                 userList.push(user);
+                userId = userList.length - 1;
                 let input = JSON.stringify(userList);
                 $.ajax({
                     url: `/api/gameroom/${thisGameId}`,

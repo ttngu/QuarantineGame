@@ -58,4 +58,13 @@ io.on('connection', function(socket){
   socket.on('startGame', input => {
     io.to(input.code).emit('startGameReturn', input.card);
   })
+  //phase II:
+  socket.on('sendVote', input => {
+    io.to(input.code).emit('userVoted', {user: input.user, vote:input.vote})
+  })
+  //send vote with vote id, voter id, lobby code
+  //voter and vote
+  //push vote array
+  //once array length user list stop voting (or time expires)
+  //for loop through vote vote array and tally votes
 });
