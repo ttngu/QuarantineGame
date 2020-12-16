@@ -107,9 +107,15 @@ h5 {
 }
 
 .btn-danger {
-  color: #fff;
-  background-color: #7b77a7;
-  border-color: #675e84;
+  color: #fff !important;
+  background-color: #7b77a7 !important;
+  border-color: #675e84 !important;
+}
+
+.btn-danger:hover {
+  color: #fff !important;
+  background-color: #9ca4ac !important;
+  border-color: #675e84 !important;
 }
 
 .footer {
