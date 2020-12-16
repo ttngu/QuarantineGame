@@ -49,6 +49,9 @@
               <div class="modal-body">
                 <label for="rounds" class="form-label">Rounds</label>
                 <input type="range" class="form-range" min="5" max="50" step="5" id="rounds"><span class="valueSpan"></span>
+                <br>
+                <label for="cons" class="form-label">Consequence Name:</label>
+                <input id="cons" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="points">
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="lobbycreate">Submit</button>
@@ -69,43 +72,16 @@
       <!-- Column 3 -->
       <!-- This column will hold the user info, votes, etc. -->
       <div class="col-sm-4">
+        <button type="button" class="btn btn-danger" id="startGame">Start Game</button>
         <!-- <div class="vl"></div> -->
         <div class="card user-pannel" style="width: 20rem;">
           <div class="card-body">
-            <h5 class="card-user">Username</h5>
-            <p class="card-score">Score</p>
+            <h4>Lobby Code: <span id="lobbyDisp"></span><span id="countdown"></span></h4>
+            <h5 class="card-user">Username: <span id="userDisp"></span></h5>
+            <p class="card-score">Score: <span id="scoreDisp"></span></p>
             <hr>
-            <p>Player 1 
-              <a href="#" class="btn btn-secondary" id="vote-btn">Vote</a>
-            </p>
-              <hr>
-            <p>Player 1 
-              <a href="#" class="btn btn-secondary" id="vote-btn">Vote</a>
-            </p>
-              <hr>
-            <p>Player 2 
-              <a href="#" class="btn btn-secondary" id="vote-btn">Vote</a>
-            </p>
-              <hr>
-            <p>Player 3 
-              <a href="#" class="btn btn-secondary" id="vote-btn">Vote</a>
-            </p>
-              <hr>
-            <p>Player 4 
-              <a href="#" class="btn btn-secondary" id="vote-btn">Vote</a>
-            </p>
-              <hr>
-            <p>Player 5 
-              <a href="#" class="btn btn-secondary" id="vote-btn">Vote</a>
-            </p>
-              <hr>
-            <p>Player 6 
-              <a href="#" class="btn btn-secondary" id="vote-btn">Vote</a>
-            </p>
-              <hr>
-            <p>Player 7 
-              <a href="#" class="btn btn-secondary" id="vote-btn">Vote</a>
-            </p>
+            <div class="sidepanel">
+            </div>
              
           </div>
         </div>
