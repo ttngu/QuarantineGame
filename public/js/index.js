@@ -1,12 +1,11 @@
 const userInput = $('#username');
 const imageInput = $('#inputGroupSelect04');
-// const lobbyInput = $('#lobby');
+const lobbyInput = $('#lobby');
 
 $('.create').click(() => {
     let avatar = imageInput.val();
     let name = userInput.val().trim();
     let userArr = [];
-    console.log(avatar);
     if(name){
         userArr = [{name: name, avatar: avatar, score: 0}];
         localStorage.setItem("newLobby", JSON.stringify(userArr));
@@ -18,11 +17,12 @@ $('.create').click(() => {
 
 $('.join').click(() => {
     let name = userInput.val().trim();
+    let avatar = imageInput.val();
     let sentData = [];
-    let lobbyCode = "Hello";
+    let lobbyCode = lobbyInput.val().trim();
     console.log(name);
     if(name){
-        sentData = [{name: name, avatar: 0, score: 0},lobbyCode];
+        sentData = [{name: name, avatar: avatar, score: 0},lobbyCode];
         localStorage.setItem("joinLobby", JSON.stringify(sentData));
         window.location.href = "/game";
     } else {

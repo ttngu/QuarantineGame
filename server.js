@@ -42,23 +42,20 @@ io.on('connection', function(socket){
   });
   //join existing lobby
   socket.on('joinLobby', code => {
-    if(io.sockets.adapter.rooms.get(lobbyCode).size >= 1){
-      lobbyCode = code;
       socket.join(code);
-    } else {
-      //empty lobby fail condition TBD
-    }
+    
+  });
+  //tell all players to render users
+  socket.on('renderUser', code => {
+    io.to(code).emit('renderUserReturn');
   });
   //placeholder draw card
-  socket.on('drawCard', (card) => {
-    io.to(lobbyCode).emit('drawCardReturn', card)
-  });
-  //placeholder update scoreboard
-  socket.on('updateUserList', (userArr) => {
-    io.to(lobbyCode).emit('updateUserListReturn', userArr)
-  });
+  socket.on('drawCard', (code, card) => {
 
-  socket.on('startGame', (userStart) => {
-    io.to(lobbyCode).emit('startGameReturn', userStart)
+    io.to(code).emit('drawCardReturn', card)
+  });  
+  //placeholder start game
+  socket.on('startGame', input => {
+    io.to(input.code).emit('startGameReturn', input.card);
   })
 });
