@@ -1,3 +1,4 @@
+"use strict";
 var socket = io();
 var userList = [];
 var user = "";
@@ -52,7 +53,9 @@ function createGameLobby() {
 };
 
 function createButton(){
-    startButton.attr("style","display:inline-block")
+    if(userId === 0){        
+        startButton.attr("style","display:inline-block");
+    }
 }
 
 function renderUser() {
@@ -65,25 +68,33 @@ function renderUser() {
 }
 
 function createDeck() {
-    $.get("/api/cards/1", function(data) {       
-        if (data.length !== 0) {      
-          for (var i = 0; i < data.length; i++) {
-            deck.push(data[i]);
-          }      
+
+    $.get("/api/cards/1").then(data => {
+        for(let i = 0; i < data.length; i++) {
+            deck.push(data[i])
         }
-        if(deck.length > 0){
-        }   
-      });
+    })
+    // $.get("/api/cards/1", function(data) {       
+    //     if (data.length !== 0) {      
+    //       for (var i = 0; i < data.length; i++) {
+    //         deck.push(data[i]);
+    //       }      
+    //     }
+    //     if(deck.length > 0){
+    //     }   
+    //   });
 }
 
 
 async function drawCard(){
     let card = Math.floor(Math.random() * deck.length);
+    console.log(deck)
     if(usedDeck.indexOf(card) === -1){
         usedDeck.push(card);
-        return card;
+        return await card;
     }else if(deck.length === usedDeck.length){
         usedDeck = [];
+        drawCard();
     }else{
         drawCard();
     }
@@ -91,14 +102,29 @@ async function drawCard(){
 
 startButton.click(() => startGame())
 
-async function startGame() {
-    let card = await drawCard();
-    socket.emit("startGame", {code: thisGameId, card: card});
+async function startGame() {   
+    let card; 
+    if(userId === 0){ 
+        card = new Promise((res, rej) => {
+            return res(drawCard());
+        })
+        // let card = await drawCard();
+    //    if(typeof card === 'undefined' || card === null) {
+    //     card = new Promise((res, rej) => {
+    //         return res(drawCard());
+    //     })
+       }
+       console.log(await card);
+        socket.emit("startGame", {code: thisGameId, card: await card});
+        
+    
 }
 
-socket.on("startGameReturn", (i) => {        
+socket.on("startGameReturn", async (i) => {  
+    console.log(await i)      
     startButton.attr("style","display:none");
-    let html = `<h3>Most Likely To</h3><p>${deck[i].body}</p><p>${deck[i].consequence} ${cons}</p>`;
+    // console.log(deck);
+    let html = `<h3>Most Likely To</h3><p>${deck[i]?.body}</p><p>${deck[i]?.consequence} ${cons}</p>`;
     topCard.html(html);
     startVoting();
 })
@@ -120,10 +146,12 @@ function startVoting(){
 
 function endVoting(){
     let result = Array(userList.length).fill(0);
+    console.log(result);
     voting.forEach(e => {
         result[e[1]]++;
     })
     voting = [];
+    console.log(result);
     announceWinner(result);
 }
 

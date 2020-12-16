@@ -56,6 +56,7 @@ io.on('connection', function(socket){
   });  
   //placeholder start game
   socket.on('startGame', input => {
+    console.log(input.card);
     io.to(input.code).emit('startGameReturn', input.card);
   })
   //phase II:
