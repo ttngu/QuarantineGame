@@ -11,8 +11,11 @@ var voting = [];
 var cons = "points";
 var thisGameId = "";
 var socketId = "";
+let consequence = 0;
 let roundsNumber = 0;
 let voteButtons = $('.voteBtn');
+let drawCard = 0;
+let timer = 0;
 const sidePanel = $(".sidepanel")
 const valueSpan = $('.valueSpan');
 const rounds = $('#rounds');
@@ -85,80 +88,117 @@ function createDeck() {
     //   });
 }
 
+// async function drawCard(){
+//     let card = Math.floor(Math.random() * deck.length);
+//     console.log(deck)
+//     if(usedDeck.indexOf(card) === -1){
+//         usedDeck.push(card);
+//         return await card;
+//     }else if(deck.length === usedDeck.length){
+//         usedDeck = [];
+//         drawCard();
+//     }else{
+//         drawCard();
+//     }
+// }
 
-async function drawCard(){
-    let card = Math.floor(Math.random() * deck.length);
-    console.log(deck)
-    if(usedDeck.indexOf(card) === -1){
-        usedDeck.push(card);
-        return await card;
-    }else if(deck.length === usedDeck.length){
-        usedDeck = [];
-        drawCard();
-    }else{
-        drawCard();
-    }
-}
 
-startButton.click(() => startGame())
-
-async function startGame() {   
-    let card; 
-    if(userId === 0){ 
-        card = new Promise((res, rej) => {
-            return res(drawCard());
-        })
-        // let card = await drawCard();
-    //    if(typeof card === 'undefined' || card === null) {
-    //     card = new Promise((res, rej) => {
-    //         return res(drawCard());
-    //     })
-       }
-       console.log(await card);
-        socket.emit("startGame", {code: thisGameId, card: await card});
+// async function startGame() {   
+//     let card; 
+//     if(userId === 0){ 
+//         card = new Promise((res, rej) => {
+//             return res(drawCard());
+//         })
+//         // let card = await drawCard();
+//     //    if(typeof card === 'undefined' || card === null) {
+//     //     card = new Promise((res, rej) => {
+//     //         return res(drawCard());
+//     //     })
+//        }
+//        console.log(await card);
+//         socket.emit("startGame", {code: thisGameId, card: await card});
         
     
+// }
+
+// socket.on("startGameReturn", async (i) => {  
+//     console.log(await i)      
+//     startButton.attr("style","display:none");
+//     // console.log(deck);
+//     let html = `<h3>Most Likely To</h3><p>${deck[i]?.body}</p><p>${deck[i]?.consequence} ${cons}</p>`;
+//     topCard.html(html);
+//     startVoting();
+// })
+
+startButton.click(() => {
+    if(userId === 0){
+        socket.emit("startGame", {code: thisGameId, card: 0});}
+    })
+
+function roundCheck(){  
+        if(roundsNumber < round){                      
+            roundsNumber++;
+            startGame();
+        }else{
+            endGame();
+            }
+        
 }
 
-socket.on("startGameReturn", async (i) => {  
-    console.log(await i)      
-    startButton.attr("style","display:none");
-    // console.log(deck);
-    let html = `<h3>Most Likely To</h3><p>${deck[i]?.body}</p><p>${deck[i]?.consequence} ${cons}</p>`;
+socket.on('startGameReturn', (output) => {           
+        roundCheck();
+  });
+
+
+function startGame(){   
+    console.log("this"); 
+    let i = drawCard;
+    consequence = deck[i].consequence;
+    let html = `<p>${deck[i]?.body}</p><p>${deck[i]?.consequence} ${cons}</p>`;
     topCard.html(html);
+    drawCard < deck.length-1 ? drawCard++ : drawCard = 0;
     startVoting();
-})
+}
 
 function startVoting(){
     voteButtons = $('.voteBtn');
     voteButtons.attr("style","display:inline-block");
-    let timer = 30;
+    timer = 30;
+    countdownStart();   
+}
+
+function countdownStart(){
     let countdown = setInterval(function(){
         timerDisp.html(timer);  
          timer--;
          if(timer < 0 || voting.length === userList.length){
+            timerDisp.html("");
              clearInterval(countdown);
              endVoting();
-             timerDisp.html("");
          }
         }, 1000);
+    
 }
 
 function endVoting(){
+    clearInterval(countdown);
     let result = Array(userList.length).fill(0);
-    console.log(result);
     voting.forEach(e => {
         result[e[1]]++;
     })
     voting = [];
-    console.log(result);
     announceWinner(result);
 }
 
 function announceWinner(result){
     let i = result.indexOf(Math.max(...result));
-    console.log(`${userList[i].name} is the "winner"`)
-    startGame();
+    userList[i].score += consequence;
+    if(i === userId){
+        scoreDisp.html(userList[i].score)
+    }
+    renderUser();
+    topCard.html(`<h3>${userList[i].name} is the "winner"</h3>`)
+    setTimeout(() => {roundCheck();}, 7000);    
 }
 
 $(document).on("click", '.voteBtn', (function() {  
@@ -176,8 +216,11 @@ socket.on('userVoted', input =>{
     voting.push([input.user,parseInt(input.vote)])
 })
 
-function endGame() {    
-    
+function endGame() { 
+    let i = Math.max.apply(Math, userList.map(function(e) { return e.score }));
+    let x = userList.findIndex(e => e.score === i);
+    topCard.html(`<h4>Game Over</h4><br>
+    <h3>${userList[x].name} is the "grand winner" with ${i} ${cons}</h3>`)    
 }
 
 function updateUserScore(){
@@ -188,7 +231,6 @@ function getUserList(){
     $.get(`/api/gameroom/${thisGameId}`, function(data, status) {    
         userList = JSON.parse(data[0].user_list);
         if(status==="success"){
-
             renderUser();
             if(userList.length > 1){                 
                 createButton();
@@ -202,6 +244,9 @@ function getUserList(){
 function updateUser(user){
     $.get(`/api/gameroom/${thisGameId}`, function(data, status) {
         userList = JSON.parse(data[0].user_list);
+        round = data[0].rounds;
+        cons = data[0].cons_name;
+        console.log(data[0]);
         if(status==="success"){
             if(userList.length<8){
                 userList.push(user);
@@ -244,7 +289,7 @@ socket.on('connect', () => {
         roundsNumber = rounds.val();
         if(consVal.val()){
             cons = consVal.val();
-        }        
+        }
         createGameLobby();
     })
     if(localStorage.getItem("joinLobby")){
@@ -308,11 +353,6 @@ var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {
     });
 });
 
-socket.on('drawCardReturn', (html) => {
-    console.log("test");
-    $('.bg-card-3').text("");
-    $('.bg-card-3').append(html);
-})
 
 
 
