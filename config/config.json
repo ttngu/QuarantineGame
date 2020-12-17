@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "harrypotter",
+    "password": "securepass12!",
 
     "database": "covid",
     "host": "127.0.0.1",
