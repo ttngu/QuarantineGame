@@ -7,7 +7,7 @@ body{
 
 h5, h4 {
   font-family: 'Montserrat', sans-serif;
-  letter-spacing: .15rem;
+  letter-spacing: .1rem;
   font-weight: 100;
 }
 
@@ -49,17 +49,15 @@ h6 {
 }
 
 .card-header {
-  background-color: #f2d79d;
-  font-weight: 100;
-  letter-spacing: .25rem;
+  background-color: #f2d79d !important;
+  font-weight: 200;
+  letter-spacing: .2rem !important;
+  text-align: center;
 }
 
-.create {
+.create, .join, .suggestion-btn{
   margin-top: 1.5rem;
-}
-
-.join {
-  margin-top: 1.5rem;
+  box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.5);
 }
 
 .modal {
