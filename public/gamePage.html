@@ -39,11 +39,12 @@
       <!-- This is the main column and will hold the cards -->
       <div class="col-sm-4">
 
+        <!-- Beginning Modal here, asks for info before playing the game -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">We need some info</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">WE NEED SOME INFO</h5>
               </div>
               <div class="modal-body">
                 <label for="rounds" class="form-label">Rounds</label>
@@ -63,6 +64,8 @@
           <div class="bg-card-1">
             <div class="bg-card-2">
               <div class="bg-card-3 animate__animated animate__flipOutY">
+                <!-- Start Button, will hide if only one player and after it is pressed -->
+                <button type="button" class="btn btn-danger vertical-center" id="startGame">Start Game</button>
               </div>
             </div>
           </div>    
@@ -71,13 +74,13 @@
       <!-- Column 3 -->
       <!-- This column will hold the user info, votes, etc. -->
       <div class="col-sm-4">
-        <button type="button" class="btn btn-danger" id="startGame">Start Game</button>
+        
         <!-- <div class="vl"></div> -->
         <div class="card user-pannel" style="width: 20rem;">
           <div class="card-body">
             <h4>Lobby Code: <span id="lobbyDisp"></span><span id="countdown"></span></h4>
-            <h5 class="card-user">Username: <span id="userDisp"></span></h5>
-            <p class="card-score">Score: <span id="scoreDisp"></span></p>
+            <h6 class="card-user">Username: <span id="userDisp"></span></h6>
+            <h6 class="card-score">Score: <span id="scoreDisp"></span></h6>
             <hr>
             <div class="sidepanel">
             </div>
@@ -87,9 +90,7 @@
 
       </div>
       
-    </div>
-    <!-- Add playing cards -->
-    
+    </div>    
   </div>  
 
 
