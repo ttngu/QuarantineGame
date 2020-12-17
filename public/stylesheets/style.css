@@ -8,7 +8,7 @@ body{
 h5 {
   font-family: 'Montserrat', sans-serif;
   letter-spacing: .15rem;
-  font-weight: 100;
+  font-weight: 500;
 }
 
 .navbar{
@@ -45,7 +45,7 @@ h5 {
 
 .card-header {
   background-color: #f2d79d;
-  font-weight: 100;
+  font-weight: 500;
   letter-spacing: .25rem;
 
 }
@@ -115,3 +115,15 @@ h5 {
   float: left;
 }
 
+.dev-odd-fact {
+  margin-bottom: 0px;
+  text-align: left;
+}
+
+.info-box {
+  text-align: left;
+}
+
+.dev-name {
+  font-weight: 475;
+}
