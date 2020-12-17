@@ -49,11 +49,6 @@ io.on('connection', function(socket){
   socket.on('renderUser', code => {
     io.to(code).emit('renderUserReturn');
   });
-  //placeholder draw card
-  socket.on('drawCard', (code, card) => {
-
-    io.to(code).emit('drawCardReturn', card)
-  });  
   //placeholder start game
   socket.on('startGame', input => {
     console.log(input.card);
