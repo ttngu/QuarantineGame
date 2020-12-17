@@ -46,6 +46,9 @@ h6 {
   text-align: center;
   box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
   margin-bottom: 1.5rem;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: .15rem;
+  font-weight: 300;
 }
 
 .card-header {
