@@ -107,3 +107,10 @@ h5 {
 .voteBtn{
   display: none;
 }
+
+.developer {
+  max-height: 4rem;
+  max-width: 7rem;
+  border-radius: 35px;
+  float: left;
+}

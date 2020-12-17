@@ -5,7 +5,7 @@ var express = require("express");
 var app = require('express')();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
-var PORT = process.env.PORT || 8080;
+var PORT = process.env.PORT || 3306;
 
 // Requiring our models for syncing
 var db = require("./models");
