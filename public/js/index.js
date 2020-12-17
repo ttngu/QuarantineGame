@@ -2,6 +2,7 @@ const userInput = $('#username');
 const imageInput = $('#inputGroupSelect04');
 const lobbyInput = $('#lobby');
 
+//create a Lobby button click
 $('.create').click(() => {
     let avatar = imageInput.val();
     if(avatar === "Choose Your Avatar"){
@@ -9,6 +10,7 @@ $('.create').click(() => {
     }
     let name = userInput.val().trim();
     let userArr = [];
+    //make sure there is name value
     if(name){
         userArr = [{name: name, avatar: avatar, score: 0}];
         localStorage.setItem("newLobby", JSON.stringify(userArr));
@@ -18,6 +20,7 @@ $('.create').click(() => {
     }
 })
 
+//join a Lobby button click
 $('.join').click(() => {
     let name = userInput.val().trim();
     let avatar = imageInput.val();
@@ -26,6 +29,7 @@ $('.join').click(() => {
     }
     let sentData = [];
     let lobbyCode = lobbyInput.val().trim();
+    //making sure there is a lobby value
     if(!lobbyCode){
         alert("Lobby Code Required to Join a Lobby");       
     }else{ 
@@ -39,6 +43,7 @@ $('.join').click(() => {
     
 })
 
+//avatar image preview
 $(document).ready(function() {
     const valueSpan = $('.valueSpan');
     const value = imageInput;
