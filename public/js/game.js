@@ -89,34 +89,6 @@ function drawCard(){
     }
 }
 
-
-// async function startGame() {   
-//     let card; 
-//     if(userId === 0){ 
-//         card = new Promise((res, rej) => {
-//             return res(drawCard());
-//         })
-//         // let card = await drawCard();
-//     //    if(typeof card === 'undefined' || card === null) {
-//     //     card = new Promise((res, rej) => {
-//     //         return res(drawCard());
-//     //     })
-//        }
-//        console.log(await card);
-//         socket.emit("startGame", {code: thisGameId, card: await card});
-        
-    
-// }
-
-// socket.on("startGameReturn", async (i) => {  
-//     console.log(await i)      
-//     startButton.attr("style","display:none");
-//     // console.log(deck);
-//     let html = `<h3>Most Likely To</h3><p>${deck[i]?.body}</p><p>${deck[i]?.consequence} ${cons}</p>`;
-//     topCard.html(html);
-//     startVoting();
-// })
-
 startButton.click(() => { startGameHost();
 })
 
