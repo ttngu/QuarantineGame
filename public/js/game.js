@@ -14,7 +14,6 @@ var socketId = "";
 let consequence = 0;
 let roundsNumber = 0;
 let voteButtons = $('.voteBtn');
-let drawCard = 0;
 let timer = 0;
 const sidePanel = $(".sidepanel")
 const valueSpan = $('.valueSpan');
@@ -28,7 +27,6 @@ const topCard = $('.bg-card-3');
 const timerDisp = $('#countdown');
 const winnerDisp = $('#winnerDisp');
 
-//add socket id to userlist array
 //add disconnect check and remove from userlist
 
 function createGameLobby() {
@@ -77,30 +75,19 @@ function createDeck() {
             deck.push(data[i])
         }
     })
-    // $.get("/api/cards/1", function(data) {       
-    //     if (data.length !== 0) {      
-    //       for (var i = 0; i < data.length; i++) {
-    //         deck.push(data[i]);
-    //       }      
-    //     }
-    //     if(deck.length > 0){
-    //     }   
-    //   });
 }
 
-// async function drawCard(){
-//     let card = Math.floor(Math.random() * deck.length);
-//     console.log(deck)
-//     if(usedDeck.indexOf(card) === -1){
-//         usedDeck.push(card);
-//         return await card;
-//     }else if(deck.length === usedDeck.length){
-//         usedDeck = [];
-//         drawCard();
-//     }else{
-//         drawCard();
-//     }
-// }
+function drawCard(){
+    let card = Math.floor(Math.random() * deck.length);
+    if(usedDeck.indexOf(card) === -1){
+        usedDeck.push(card);
+        return card;
+    }else{
+        if(usedDeck.length !== deck.length) {
+            return drawCard();
+        }
+    }
+}
 
 
 // async function startGame() {   
@@ -130,33 +117,34 @@ function createDeck() {
 //     startVoting();
 // })
 
-startButton.click(() => {
-    if(userId === 0){
-        socket.emit("startGame", {code: thisGameId, card: 0});}
-    })
+startButton.click(() => { startGameHost();
+})
 
-function roundCheck(){  
+function startGameHost(){
+    let card = drawCard();
+    console.log(card);
+    socket.emit("startGame", {code: thisGameId, card: card});
+}
+
+function roundCheck(i){  
         if(roundsNumber < round){                      
             roundsNumber++;
-            startGame();
+            startGame(i);
         }else{
             endGame();
             }
         
 }
 
-socket.on('startGameReturn', (output) => {           
-        roundCheck();
+socket.on('startGameReturn', (i) => {           
+    roundCheck(i);
   });
 
 
-function startGame(){   
-    console.log("this"); 
-    let i = drawCard;
+function startGame(i){
     consequence = deck[i].consequence;
     let html = `<p>${deck[i]?.body}</p><p>${deck[i]?.consequence} ${cons}</p>`;
     topCard.html(html);
-    drawCard < deck.length-1 ? drawCard++ : drawCard = 0;
     startVoting();
 }
 
@@ -196,9 +184,16 @@ function announceWinner(result){
     if(i === userId){
         scoreDisp.html(userList[i].score)
     }
+    if(usedDeck.length === deck.length){
+        usedDeck = [];
+    }
     renderUser();
     topCard.html(`<h3>${userList[i].name} is the "winner"</h3>`)
-    setTimeout(() => {roundCheck();}, 7000);    
+    setTimeout(() => {
+        if(userId === 0){
+            startGameHost();
+        }
+    }, 7000);    
 }
 
 $(document).on("click", '.voteBtn', (function() {  
@@ -248,7 +243,6 @@ function updateUser(newUser){
         cons = data[0].cons_name;
         console.log(user);
         let userReturn = usernameCheck(newUser, userList);
-        console.log(userReturn);
         user = userReturn.name; 
         userDisp.html(user);
         lobbyDisp.html(thisGameId);
@@ -279,7 +273,6 @@ function usernameCheck(user, userList){
         user.name += "_";
         return usernameCheck(user,userList);
     }else{
-        console.log(user);
         return user;
     }
 }
@@ -320,41 +313,12 @@ socket.on('connect', () => {
         updateUserScore();
         updateUser(newUser);        
         createDeck();
-        //needs to be revisted, name and avatar check
-        // for(let i = 0; i < userArr.length; i++){
-        //     if(newUser.name === userArr[i].name){
-        //         newUser.name = newUser.name + "_";
-        //     }            
-        // }
-        // joinGameLobby(lobbyCode);
     }
 })
 
 socket.on('disconnect', () => {
     //TBD
 })
-
-
-// let cardArr = [];
-// const testFunction = () => {    
-//     $.get("/api/cards/1", function(data) {       
-//         if (data.length !== 0) {      
-//           for (var i = 0; i < data.length; i++) {
-//             cardArr.push(data[i]);
-//           }      
-//         }
-//         if(cardArr.length > 0){
-//         }   
-//       });
-
-      
-// }
-// const testFunction2 = () => {
-//     let html = `<h3>Most Likely To</h3><p>${cardArr[2].body}</p><p>${cardArr[2].consequence} ${cons}</p>`
-//     socket.emit('newGameLobby', {gameId: `12345678`, socketId: socket.id});
-//     socket.emit('drawCard', html);
-//     // $('.bg-card-3').append(html)
-// }
 
 var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {
     backdrop: 'static',
