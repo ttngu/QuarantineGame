@@ -54,12 +54,7 @@ h6 {
   letter-spacing: .25rem;
 }
 
-.create {
-  margin-top: 1.5rem;
-  box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.5);
-}
-
-.join {
+.create, .join, .suggestion-btn{
   margin-top: 1.5rem;
   box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.5);
 }
