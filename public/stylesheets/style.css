@@ -5,9 +5,14 @@ body{
   background-size: 70rem;
 }
 
-h5 {
+h5, h4 {
   font-family: 'Montserrat', sans-serif;
   letter-spacing: .15rem;
+  font-weight: 100;
+}
+
+h6 {
+  letter-spacing: .05rem;
   font-weight: 100;
 }
 
@@ -125,6 +130,7 @@ h5 {
   text-align: left;
   margin-left: 2rem;
   margin-bottom: 2rem;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .btn-danger {
