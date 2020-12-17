@@ -1,4 +1,5 @@
 "use strict";
+//Did we need this many global variables? No. But here we are anyway
 var socket = io();
 var userList = [];
 var user = "";
@@ -27,8 +28,10 @@ const topCard = $('.bg-card-3');
 const timerDisp = $('#countdown');
 const winnerDisp = $('#winnerDisp');
 
+//TODO
 //add disconnect check and remove from userlist
 
+//new Lobby set up with
 function createGameLobby() {
     // Create a unique Socket.IO Room
     const idArr = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
@@ -53,12 +56,14 @@ function createGameLobby() {
     renderUser();
 };
 
+//add start button for host
 function createButton(){
     if(userId === 0){        
         startButton.attr("style","display:inline-block");
     }
 }
 
+//updates the userlist sidebar
 function renderUser() {
     sidePanel.text("");
     for (let i = 0; i < userList.length; i++){    
@@ -68,8 +73,8 @@ function renderUser() {
     }
 }
 
+//creates the deck, this is stored locally but is the same array for every client
 function createDeck() {
-
     $.get("/api/cards/1").then(data => {
         for(let i = 0; i < data.length; i++) {
             deck.push(data[i])
@@ -77,6 +82,7 @@ function createDeck() {
     })
 }
 
+//draws a new card, checks to make sure all the cards are used before you get duplicates
 function drawCard(){
     let card = Math.floor(Math.random() * deck.length);
     if(usedDeck.indexOf(card) === -1){
@@ -88,16 +94,22 @@ function drawCard(){
         }
     }
 }
-
+//starts the game on start button click
 startButton.click(() => { startGameHost();
 })
-
+//host-specific start game function that emits to other lobby users to start the game
 function startGameHost(){
     let card = drawCard();
     console.log(card);
     socket.emit("startGame", {code: thisGameId, card: card});
 }
+//receive start game instructions from server
+socket.on('startGameReturn', (i) => {           
+    roundCheck(i);
+  });
 
+//client-side round checker, no server call need :) 
+//the paramater here is so I can pass it to startGame lmao
 function roundCheck(i){  
         if(roundsNumber < round){                      
             roundsNumber++;
@@ -105,28 +117,22 @@ function roundCheck(i){
         }else{
             endGame();
             }
-        
 }
-
-socket.on('startGameReturn', (i) => {           
-    roundCheck(i);
-  });
-
-
+//populates the card on the screen with the current card data
 function startGame(i){
     consequence = deck[i].consequence;
     let html = `<p>${deck[i]?.body}</p><p>${deck[i]?.consequence} ${cons}</p>`;
     topCard.html(html);
     startVoting();
 }
-
+//redefines voteButtons, then makes them visible
 function startVoting(){
     voteButtons = $('.voteBtn');
     voteButtons.attr("style","display:inline-block");
     timer = 30;
     countdownStart();   
 }
-
+//starts 30 sec countdown timer, round ends once everyone had voted or the timer runs out
 function countdownStart(){
     let countdown = setInterval(function(){
         timerDisp.html(timer);  
@@ -139,7 +145,24 @@ function countdownStart(){
         }, 1000);
     
 }
+//scrapes your vote based on the id of the vote button you used
+$(document).on("click", '.voteBtn', (function() {  
+    console.log("vote cast");
+    var id = $(this).attr('id');    
+    voteButtons.attr("style","display:none");
+    sendVote(id);
+}));
+//sends your vote to the server 
+function sendVote(id){
+    socket.emit('sendVote', {user: userId, vote: id, code: thisGameId});
+}
 
+//accepts other users votes and stores them
+//stored in plain text so feel free to found out how your friends really feel about you :P
+socket.on('userVoted', input =>{
+    voting.push([input.user,parseInt(input.vote)])
+})
+//ends the voting, clears the timer again (just in case), and tabulates the voting
 function endVoting(){
     clearInterval(countdown);
     let result = Array(userList.length).fill(0);
@@ -149,7 +172,8 @@ function endVoting(){
     voting = [];
     announceWinner(result);
 }
-
+//displays the winner based on highest score
+//tie breaker goes to whoever is earliest in the index (sorry host)
 function announceWinner(result){
     let i = result.indexOf(Math.max(...result));
     userList[i].score += consequence;
@@ -167,33 +191,19 @@ function announceWinner(result){
         }
     }, 7000);    
 }
-
-$(document).on("click", '.voteBtn', (function() {  
-    console.log("vote cast");
-    var id = $(this).attr('id');    
-    voteButtons.attr("style","display:none");
-    sendVote(id);
-}));
-
-function sendVote(id){
-    socket.emit('sendVote', {user: userId, vote: id, code: thisGameId});
-}
-
-socket.on('userVoted', input =>{
-    voting.push([input.user,parseInt(input.vote)])
-})
-
+//called if round number is equal to rounds played
+//displays the final winner
 function endGame() { 
     let i = Math.max.apply(Math, userList.map(function(e) { return e.score }));
     let x = userList.findIndex(e => e.score === i);
     topCard.html(`<h4>Game Over</h4><br>
     <h3>${userList[x].name} is the "grand winner" with ${i} ${cons}</h3>`)    
 }
-
+//a mostly useless function that displays the inital score on player joining
 function updateUserScore(){
     scoreDisp.html(score)
 }
-
+//populates the user list from the database
 function getUserList(){
     $.get(`/api/gameroom/${thisGameId}`, function(data, status) {    
         userList = JSON.parse(data[0].user_list);
@@ -205,9 +215,7 @@ function getUserList(){
         }
       });      
 }
-
-
-
+//updates users when any user after the host joins
 function updateUser(newUser){
     $.get(`/api/gameroom/${thisGameId}`, function(data, status) {
         userList = JSON.parse(data[0].user_list);
@@ -239,7 +247,7 @@ function updateUser(newUser){
         }
     });     
 }
-
+//checks to make sure usernames are unique
 function usernameCheck(user, userList){
     if(userList.some( e => {return e.name === user.name})){
         user.name += "_";
@@ -248,10 +256,11 @@ function usernameCheck(user, userList){
         return user;
     }
 }
-
+//tells uses to repull the user list for sidebar population
 socket.on('renderUserReturn', () => getUserList())
-
+//the start function
 socket.on('connect', () => {
+    //host user game set up
     if(localStorage.getItem("newLobby")){ 
         userList = [];
         let userArr = JSON.parse(localStorage.getItem("newLobby"));
@@ -266,6 +275,7 @@ socket.on('connect', () => {
         updateUserScore();
         createDeck();
     }
+    //modal submit button with preferences
     $("#lobbycreate").click(() => {
         myModal.hide()
         roundsNumber = rounds.val();
@@ -274,6 +284,7 @@ socket.on('connect', () => {
         }
         createGameLobby();
     })
+    //non-host user set up
     if(localStorage.getItem("joinLobby")){
         let newUser = JSON.parse(localStorage.getItem("joinLobby"))[0];
         let lobbyCode = JSON.parse(localStorage.getItem("joinLobby"))[1];
@@ -287,11 +298,12 @@ socket.on('connect', () => {
         createDeck();
     }
 })
-
+//this is where a disconnect will go when I get around to it
 socket.on('disconnect', () => {
     //TBD
 })
 
+//game setup modal definition and functionality
 var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {
     backdrop: 'static',
     keyboard: false
