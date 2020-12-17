@@ -7,13 +7,17 @@ body{
 
 h5, h4 {
   font-family: 'Montserrat', sans-serif;
+
+  font-weight: 500;
+
   letter-spacing: .1rem;
-  font-weight: 100;
+ 
 }
 
 h6 {
   letter-spacing: .05rem;
   font-weight: 100;
+
 }
 
 .navbar{
@@ -52,10 +56,11 @@ h6 {
 }
 
 .card-header {
+  font-weight: 500;
   background-color: #f2d79d !important;
-  font-weight: 200;
   letter-spacing: .2rem !important;
   text-align: center;
+
 }
 
 .create, .join, .suggestion-btn{
@@ -163,6 +168,26 @@ h6 {
   display: none;
 }
 
+.developer {
+  max-height: 4rem;
+  max-width: 7rem;
+  border-radius: 35px;
+  float: left;
+}
+
+.dev-odd-fact {
+  margin-bottom: 0px;
+  text-align: left;
+}
+
+.info-box {
+  text-align: left;
+}
+
+.dev-name {
+  font-weight: 475;
+
 .navbar-toggler {
   z-index: 2;
+
 }
