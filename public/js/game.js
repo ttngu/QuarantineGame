@@ -241,15 +241,20 @@ function getUserList(){
 
 
 
-function updateUser(user){
+function updateUser(newUser){
     $.get(`/api/gameroom/${thisGameId}`, function(data, status) {
         userList = JSON.parse(data[0].user_list);
         round = data[0].rounds;
         cons = data[0].cons_name;
-        console.log(data[0]);
+        console.log(user);
+        let userReturn = usernameCheck(newUser, userList);
+        console.log(userReturn);
+        user = userReturn.name; 
+        userDisp.html(user);
+        lobbyDisp.html(thisGameId);
         if(status==="success"){
             if(userList.length<8){
-                userList.push(user);
+                userList.push(userReturn);
                 userId = userList.length - 1;
                 let input = JSON.stringify(userList);
                 $.ajax({
@@ -262,9 +267,21 @@ function updateUser(user){
                         socket.emit('renderUser', thisGameId);
                     }
                 });           
+            } else{
+                //lobby is full
             };
         }
     });     
+}
+
+function usernameCheck(user, userList){
+    if(userList.some( e => {return e.name === user.name})){
+        user.name += "_";
+        return usernameCheck(user,userList);
+    }else{
+        console.log(user);
+        return user;
+    }
 }
 
 socket.on('renderUserReturn', () => getUserList())
@@ -295,14 +312,11 @@ socket.on('connect', () => {
     if(localStorage.getItem("joinLobby")){
         let newUser = JSON.parse(localStorage.getItem("joinLobby"))[0];
         let lobbyCode = JSON.parse(localStorage.getItem("joinLobby"))[1];
-        localStorage.removeItem("joinLobby");       
-        user = newUser.name;       
+        localStorage.removeItem("joinLobby");             
         thisGameId = lobbyCode;  
         socketId = socket.id
         newUser.socket = socketId;
         socket.emit('joinLobby', thisGameId);
-        userDisp.html(user);
-        lobbyDisp.html(thisGameId);
         updateUserScore();
         updateUser(newUser);        
         createDeck();
