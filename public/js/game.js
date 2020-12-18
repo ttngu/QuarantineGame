@@ -104,7 +104,6 @@ startButton.click(() => {
 //host-specific start game function that emits to other lobby users to start the game
 function startGameHost() {
   let card = drawCard();
-  console.log(card);
   socket.emit("startGame", {
     code: thisGameId,
     card: card
@@ -144,7 +143,7 @@ function startVoting() {
 //starts 30 sec countdown timer, round ends once everyone had voted or the timer runs out
 function countdownStart() {
   let countdown = setInterval(function() {
-    timerDisp.html(timer);
+    timerDisp.html(timer + " sec left");
     timer--;
     if (timer < 0 || voting.length === userList.length) {
       timerDisp.html("");
@@ -287,7 +286,6 @@ function usernameCheck(user, userList) {
 }
 //updates gameroom started value to stop new players from joining
 function startTrue(){
-    console.log("this");
     $.ajax({
         url: `/api/gameroom/start/${thisGameId}`,
         type: 'PUT',
@@ -340,25 +338,6 @@ socket.on('connect', () => {
     createDeck();
   }
 })
-//this is where a disconnect will go when I get around to it
-// socket.on('user has left', (input) => {
-//   let disIndex = userList.findIndex(x => x.socket === input);
-//   userList.splice(disIndex, 1);
-//   let disIndex = userList.findIndex(x => x.socket === input);
-//   if(userId === 0){
-//     $.ajax({
-//       url: `/api/gameroom/user/${thisGameId}`,
-//       type: 'PUT',
-//       data: {
-//           users: userList
-//       },
-//       success: function(data, status) {
-//           socket.emit('renderUser', thisGameId);
-//       }
-//     });
-//   }
-
-// })
 
 //game setup modal definition and functionality
 var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {
