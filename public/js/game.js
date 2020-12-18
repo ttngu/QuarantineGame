@@ -196,7 +196,7 @@ function announceWinner(result) {
     usedDeck = [];
   }
   renderUser();
-  topCard.html(`<h3>${userList[i].name} is the "winner"</h3>`)
+  topCard.html(`<h4 class="round-winner">${userList[i].name} receives </h4> <h4 class="in-game-cons">${i} ${cons}</h4>`)
   setTimeout(() => {
     if (userId === 0) {
       startGameHost();
