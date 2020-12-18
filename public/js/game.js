@@ -238,7 +238,6 @@ function updateUser(newUser) {
     round = data[0].rounds;
     cons = data[0].cons_name;
     let start = data[0].start;
-    console.log(user);
     let userReturn = usernameCheck(newUser, userList);
     user = userReturn.name;
     userDisp.html(user);
