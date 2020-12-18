@@ -51,14 +51,7 @@ io.on('connection', function(socket){
   socket.on('startGame', input => {
     io.to(input.code).emit('startGameReturn', input.card);
   })
-  socket.on("disconnecting", (reason) => {
-    let output = socket.id
-    for (const room of socket.rooms) {
-      if (room !== socket.id) {
-        socket.to(room).emit("user has left", output);
-      }
-    }
-  });
+
   //send vote
   socket.on('sendVote', input => {
     io.to(input.code).emit('userVoted', {user: input.user, vote:input.vote})
