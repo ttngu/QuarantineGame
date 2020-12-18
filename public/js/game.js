@@ -12,7 +12,7 @@ let voting = [];
 let cons = "points";
 let thisGameId = "";
 let socketId = "";
-let consequence = 0;
+let consequence = 1;
 let roundsNumber = 0;
 let voteButtons = $('.voteBtn');  
 let timer = 0;
@@ -196,7 +196,7 @@ function announceWinner(result) {
     usedDeck = [];
   }
   renderUser();
-  topCard.html(`<h4 class="round-winner">${userList[i].name} receives </h4> <h4 class="in-game-cons">${i} ${cons}</h4>`)
+  topCard.html(`<h4 class="round-winner">${userList[i].name} receives </h4> <h4 class="in-game-cons">${consequence} ${cons}</h4>`)
   setTimeout(() => {
     if (userId === 0) {
       startGameHost();
