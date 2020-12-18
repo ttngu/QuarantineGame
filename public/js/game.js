@@ -14,7 +14,7 @@ var thisGameId = "";
 var socketId = "";
 let consequence = 0;
 let roundsNumber = 0;
-let voteButtons = $('.voteBtn');
+let voteButtons = $('.voteBtn');  
 let timer = 0;
 const sidePanel = $(".sidepanel")
 const valueSpan = $('.valueSpan');
@@ -229,7 +229,7 @@ function getUserList() {
     }
   });
 }
-//updates users when any user after the host joins
+//updates user list when any user after the host joins
 function updateUser(newUser) {
   $.get(`/api/gameroom/${thisGameId}`, function(data, status) {
     userList = JSON.parse(data[0].user_list);
@@ -243,7 +243,8 @@ function updateUser(newUser) {
     lobbyDisp.html(thisGameId);
     if(!start){
         if (status === "success") {
-            if (userList.length <= 8) {
+            if (userList.length <= 8) {              
+                socket.emit('joinLobby', thisGameId);
                 userList.push(userReturn);
                 userId = userList.length - 1;
                 let input = JSON.stringify(userList);
@@ -268,7 +269,8 @@ function updateUser(newUser) {
 }
 //tells the user to GTFO because they can't join that game
 function errorJoin(){
-    topCard.html(`<h4>Sorry that game is either full or has started, go back to the index to join/start another lobby</h4>`)
+    topCard.html(`<h4 class="gameover">Sorry that game is either full or has started</h4>
+    <h4 class="gameover"><a href="/>Go Back</a></h4>`)
 }
 
 //checks to make sure usernames are unique
@@ -332,7 +334,6 @@ socket.on('connect', () => {
     thisGameId = lobbyCode;
     socketId = socket.id
     newUser.socket = socketId;
-    socket.emit('joinLobby', thisGameId);
     updateUserScore();
     updateUser(newUser);
     createDeck();
