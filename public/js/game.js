@@ -270,7 +270,7 @@ function updateUser(newUser) {
 //tells the user to GTFO because they can't join that game
 function errorJoin(){
     topCard.html(`<h4 class="gameover">Sorry that game is either full or has started</h4>
-    <h4 class="gameover"><a href="/>Go Back</a></h4>`)
+    <h4 class="gameover"><a href="/">Go Back</a></h4>`)
 }
 
 //checks to make sure usernames are unique
