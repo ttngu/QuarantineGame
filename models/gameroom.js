@@ -14,12 +14,17 @@ module.exports = function(sequelize, DataTypes) {
       cons_name: {
         type: DataTypes.STRING,
         allowNull: false,
-        default: "points"
+        defaultValue: "points"
       },
       rounds: {
         type: DataTypes.INTEGER,
         allowNull: false,
         default: 10
+      },
+      start:{
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: false
       }
     });
     return GameRoom;
