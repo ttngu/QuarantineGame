@@ -35,10 +35,19 @@ module.exports = function(app) {
         })        
     })
     //update userList
-    app.put("/api/gameroom/:id", function(req,res){
+    app.put("/api/gameroom/user/:id", function(req,res){
         console.log(req.body);
         db.GameRoom.update(
-            {user_list: req.body.users}, 
+            {user_list: req.body.users,}, 
+            {where: {roomname: req.params.id}}).then(function(data){
+            res.json(data);
+        })
+    })
+    //update start
+    app.put("/api/gameroom/start/:id", function(req,res){
+        console.log(req.body);
+        db.GameRoom.update(
+            {start: req.body.start,}, 
             {where: {roomname: req.params.id}}).then(function(data){
             res.json(data);
         })

@@ -40,7 +40,6 @@ $('.join').click(() => {
     } else {
         alert("Username Required to Join a Lobby");  
     }}
-    
 })
 
 //avatar image preview
