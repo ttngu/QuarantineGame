@@ -1,17 +1,17 @@
 "use strict";
 //Did we need this many global variables? No. But here we are anyway
-var socket = io();
-var userList = [];
-var user = "";
-var userId = -1;
-var round = 30;
-var score = 0;
-var deck = [];
-var usedDeck = [];
-var voting = [];
-var cons = "points";
-var thisGameId = "";
-var socketId = "";
+const socket = io();
+let userList = [];
+let user = "";
+let userId = -1;
+let round = 30;
+let score = 0;
+let deck = [];
+let usedDeck = [];
+let voting = [];
+let cons = "points";
+let thisGameId = "";
+let socketId = "";
 let consequence = 0;
 let roundsNumber = 0;
 let voteButtons = $('.voteBtn');  
@@ -36,8 +36,7 @@ function createGameLobby() {
   // Create a unique Socket.IO Room
   const idArr = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
-  ];
+    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
   do {
     let i = Math.floor(Math.random() * idArr.length);
     thisGameId += idArr[i];
@@ -250,14 +249,14 @@ function updateUser(newUser) {
                 userId = userList.length - 1;
                 let input = JSON.stringify(userList);
                 $.ajax({
-                url: `/api/gameroom/user/${thisGameId}`,
-                type: 'PUT',
-                data: {
-                    users: input
-                },
-                success: function(data, status) {
-                    socket.emit('renderUser', thisGameId);
-                }
+                  url: `/api/gameroom/user/${thisGameId}`,
+                  type: 'PUT',
+                  data: {
+                      users: input
+                  },
+                  success: function(data, status) {
+                      socket.emit('renderUser', thisGameId);
+                  }
                 });
             } else {
                 errorJoin();
@@ -296,7 +295,7 @@ function startTrue(){
         start: true
         },
         success: function(data, status) {
-            socket.emit('renderUser', thisGameId);
+            console.log("Game status updated: " + status)
         }
     }
 )}
@@ -342,9 +341,24 @@ socket.on('connect', () => {
   }
 })
 //this is where a disconnect will go when I get around to it
-socket.on('disconnect', () => {
-  //TBD
-})
+// socket.on('user has left', (input) => {
+//   let disIndex = userList.findIndex(x => x.socket === input);
+//   userList.splice(disIndex, 1);
+//   let disIndex = userList.findIndex(x => x.socket === input);
+//   if(userId === 0){
+//     $.ajax({
+//       url: `/api/gameroom/user/${thisGameId}`,
+//       type: 'PUT',
+//       data: {
+//           users: userList
+//       },
+//       success: function(data, status) {
+//           socket.emit('renderUser', thisGameId);
+//       }
+//     });
+//   }
+
+// })
 
 //game setup modal definition and functionality
 var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {

@@ -31,19 +31,17 @@ db.sequelize.sync({ force: false, alter: true }).then(function() {
   });
 });
 
-let lobbyCode = "";
 io.on('connection', function(socket){
   //create new lobby     
   socket.on('newGameLobby', data => {
-    lobbyCode = data.gameId;
+    let lobbyCode = data.gameId;
     if(lobbyCode.length > 0){
       socket.join(lobbyCode);  
     }
   });
   //join existing lobby
   socket.on('joinLobby', code => {
-      socket.join(code);
-    
+      socket.join(code);    
   });
   //tell all players to render users
   socket.on('renderUser', code => {
@@ -51,16 +49,18 @@ io.on('connection', function(socket){
   });
   //placeholder start game
   socket.on('startGame', input => {
-    console.log(input.card);
     io.to(input.code).emit('startGameReturn', input.card);
   })
-  //phase II:
+  socket.on("disconnecting", (reason) => {
+    let output = socket.id
+    for (const room of socket.rooms) {
+      if (room !== socket.id) {
+        socket.to(room).emit("user has left", output);
+      }
+    }
+  });
+  //send vote
   socket.on('sendVote', input => {
     io.to(input.code).emit('userVoted', {user: input.user, vote:input.vote})
   })
-  //send vote with vote id, voter id, lobby code
-  //voter and vote
-  //push vote array
-  //once array length user list stop voting (or time expires)
-  //for loop through vote vote array and tally votes
 });
