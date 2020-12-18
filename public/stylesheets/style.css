@@ -249,3 +249,14 @@ h6 {
   letter-spacing: .15rem;
   font-weight: 500;
 }
+
+.footernew {
+  position: static;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: black;
+  text-align: center;
+  padding-bottom: 20px;
+
+}
