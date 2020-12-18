@@ -4,6 +4,7 @@ $(document).ready(function() {
         $.post(`/api/suggestion/`, {
             input: input
           }, function(data, status) {
+              $('#submitInput').val("");
             console.log("suggestions submission status: " + status)
           })
     })
