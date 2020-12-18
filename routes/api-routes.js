@@ -29,6 +29,13 @@ module.exports = function(app) {
               res.json(data);
           })
     })
+    app.post("/api/suggestion/", function(req,res){
+        db.Suggestion.create({
+            body: req.body.input
+          }).then(function(data){
+              res.json(data);
+          })
+    })
     app.get("/api/gameroom/:id", function(req,res){
         db.GameRoom.findAll({where: {roomname: req.params.id}}).then(function(data){
             res.json(data)
