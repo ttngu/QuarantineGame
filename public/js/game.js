@@ -320,8 +320,8 @@ socket.on('connect', () => {
   $("#lobbycreate").click(() => {
     myModal.hide()
     round = rounds.val();
-    if (consVal.val()) {
-      cons = consVal.val();
+    if (consVal.val().trim()) {
+      cons = consVal.val().trim();
     }
     createGameLobby();
   })
