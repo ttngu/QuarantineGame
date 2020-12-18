@@ -212,7 +212,7 @@ function endGame() {
     let i = Math.max.apply(Math, userList.map(function(e) { return e.score }));
     let x = userList.findIndex(e => e.score === i);
     topCard.html(`<h4 class="gameover">Game Over</h4><br>
-    <h3>${userList[x].name} is the "grand winner" with ${i} ${cons}</h3>`)    
+    <h3 class="winner"><p>${userList[x].name}</p> is the "grand winner" with ${i} ${cons}</h3>`)    
 
 }
 //a mostly useless function that displays the inital score on player joining
@@ -238,7 +238,6 @@ function updateUser(newUser) {
     round = data[0].rounds;
     cons = data[0].cons_name;
     let start = data[0].start;
-    console.log(user);
     let userReturn = usernameCheck(newUser, userList);
     user = userReturn.name;
     userDisp.html(user);
@@ -271,8 +270,9 @@ function updateUser(newUser) {
 }
 //tells the user to GTFO because they can't join that game
 function errorJoin(){
-    topCard.html(`<h4 class="gameover">Sorry that game is either full or has started</h4>
-    <h4 class="gameover"><a href="/">Go Back</a></h4>`)
+    topCard.html(`<h4 class="sorry">SORRY!</h4>
+    <p class="lobby-full">This game is either full or your friends have started without you.</p> 
+    <h4 class="text-center"><a href="/" class="go-back">Go Back</a></h4>`)
 }
 
 //checks to make sure usernames are unique
