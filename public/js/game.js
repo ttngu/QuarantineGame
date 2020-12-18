@@ -212,7 +212,7 @@ function endGame() {
     let i = Math.max.apply(Math, userList.map(function(e) { return e.score }));
     let x = userList.findIndex(e => e.score === i);
     topCard.html(`<h4 class="gameover">Game Over</h4><br>
-    <h3>${userList[x].name} is the "grand winner" with ${i} ${cons}</h3>`)    
+    <h3 class="winner"><p>${userList[x].name}</p> is the "grand winner" with ${i} ${cons}</h3>`)    
 
 }
 //a mostly useless function that displays the inital score on player joining

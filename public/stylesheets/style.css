@@ -191,17 +191,7 @@ h6 {
   z-index: 2;
 }
 
-.gameover {
-  text-align: center;
-  /* padding-top: 5rem;
-  padding-left: .25rem;
-  padding-right: .25rem;
-  font-family: 'Montserrat', sans-serif;
-  letter-spacing: .15rem;
-  font-weight: 525; */
-}
-
-.sorry {
+.sorry, .gameover {
   font-size: 2rem;
   text-align: center;
   padding-top: 5rem;
@@ -221,13 +211,10 @@ h6 {
   font-weight: 525;
 }
 
-.go-back, .go-back:hover {
+.go-back, .go-back:hover{
   position: center;
   color: #625877;
-  
-
 }
-
 
 
 .lobby-header {
@@ -252,4 +239,13 @@ h6 {
   font-family: 'Montserrat', sans-serif;
   letter-spacing: .15rem;
   font-weight: 550;
+}
+
+.winner {
+  font-size: 1.25rem;
+  text-align: center;
+  margin-top: 2rem;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: .15rem;
+  font-weight: 500;
 }
