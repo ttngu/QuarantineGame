@@ -127,11 +127,13 @@ function roundCheck(i) {
   }
 }
 //populates the card on the screen with the current card data
-function startGame(i) {
-  consequence = deck[i].consequence;
-  let html = `<p>${deck[i]?.body}</p><p>${deck[i]?.consequence} ${cons}</p>`;
-  topCard.html(html);
-  startVoting();
+
+function startGame(i){
+    consequence = deck[i].consequence;
+    let html = `<p class="game-question-text">${deck[i]?.body}</p><p class="in-game-cons">${deck[i]?.consequence} ${cons}</p>`;
+    topCard.html(html);
+    startVoting();
+
 }
 //redefines voteButtons, then makes them visible
 function startVoting() {
@@ -205,13 +207,13 @@ function announceWinner(result) {
 }
 //called if round number is equal to rounds played
 //displays the final winner
-function endGame() {
-  let i = Math.max.apply(Math, userList.map(function(e) {
-    return e.score
-  }));
-  let x = userList.findIndex(e => e.score === i);
-  topCard.html(`<h4>Game Over</h4><br>
-    <h3>${userList[x].name} is the "grand winner" with ${i} ${cons}</h3>`)
+
+function endGame() { 
+    let i = Math.max.apply(Math, userList.map(function(e) { return e.score }));
+    let x = userList.findIndex(e => e.score === i);
+    topCard.html(`<h4 class="gameover">Game Over</h4><br>
+    <h3>${userList[x].name} is the "grand winner" with ${i} ${cons}</h3>`)    
+
 }
 //a mostly useless function that displays the inital score on player joining
 function updateUserScore() {
