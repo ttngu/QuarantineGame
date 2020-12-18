@@ -193,8 +193,63 @@ h6 {
 
 .gameover {
   text-align: center;
+  /* padding-top: 5rem;
+  padding-left: .25rem;
+  padding-right: .25rem;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: .15rem;
+  font-weight: 525; */
 }
+
+.sorry {
+  font-size: 2rem;
+  text-align: center;
+  padding-top: 5rem;
+  padding-left: .25rem;
+  padding-right: .25rem;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: .15rem;
+  font-weight: 525;
+}
+
+.lobby-full {
+  text-align: center;
+  padding-left: .25rem;
+  padding-right: .25rem;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: .15rem;
+  font-weight: 525;
+}
+
+.go-back, .go-back:hover {
+  position: center;
+  color: #625877;
+  
+
+}
+
+
 
 .lobby-header {
   padding-top: 1.5rem;
+}
+
+.game-question-text {
+  font-size: 1.5rem;
+  text-align: center;
+  padding-top: 5rem;
+  padding-left: .5rem;
+  padding-right: .5rem;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: .15rem;
+  font-weight: 400;
+}
+
+.in-game-cons {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-top: 2rem;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: .15rem;
+  font-weight: 550;
 }
