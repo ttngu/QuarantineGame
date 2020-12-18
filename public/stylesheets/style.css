@@ -194,3 +194,7 @@ h6 {
 .gameover {
   text-align: center;
 }
+
+.lobby-header {
+  padding-top: 1.5rem;
+}

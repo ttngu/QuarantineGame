@@ -5,13 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Page</title>
     <!-- Add CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="./stylesheets/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <!-- Nav Bar  -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white">
-    <a class="navbar-brand"><img src="./images/background-logo/titleBanner.png" alt="" height= 70px></a>
+    <a class="navbar-brand" href="index.html"><img src="./images/titleBanner.png" alt="" height= 70px></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+          <a class="nav-item nav-link" href="index.html">Home</a>
+          <a class="nav-item nav-link" href="aboutPage.html">About</a>
+        <a class="nav-item nav-link active" href="gamePage.html">Game<span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link" href="contactPage.html">Contact</a>
+        
       </div>
     </div>
   </nav>
@@ -55,6 +65,7 @@
           <div class="bg-card-1">
             <div class="bg-card-2">
               <div class="bg-card-3 animate__animated animate__flipOutY">
+                <p>Who is most likely to contract covid?</p><p>1 shots</p>
                 <!-- Start Button, will hide if only one player and after it is pressed -->
                 <button type="button" class="btn btn-danger vertical-center" id="startGame">Start Game</button>
               </div>
@@ -69,8 +80,7 @@
         
         <!-- <div class="vl"></div> -->
         <div class="card user-pannel" style="width: 20rem;">
-          <h5 class="card-header lobby-header">Lobby Code: <span id="lobbyDisp"></span>
-          <p><span id="countdown"></span> &nbsp;hello </p></h5>
+          <h5 class="card-header">Lobby Code: <span id="lobbyDisp"></span><span id="countdown"></span></h5>
           <div class="card-body">
             <h6 class="card-user">Username: <span id="userDisp"></span></h6>
             <h6 class="card-score">Score: <span id="scoreDisp"></span></h6>
