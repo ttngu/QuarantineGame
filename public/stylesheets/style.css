@@ -150,15 +150,6 @@ h6 {
   border-color: #675e84 !important;
 }
 
-.footer {
-  font-size: 10px;
-  font-weight: lighter;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 2.5rem;  
-}
-
 #startGame{
   display: none;
 }
@@ -261,13 +252,14 @@ h6 {
   font-weight: 500;
 }
 
-.footernew {
-  position: static;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  color: black;
-  text-align: center;
-  padding-bottom: 20px;
-
+footer {
+  clear: both;
+  display: block;
+  text-align: right;
+  font-size: .75rem;
+  font-weight: lighter;
+  bottom:0;
+  width: 95%;
+  height: 30px;
+  position: fixed;
 }
