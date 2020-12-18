@@ -190,3 +190,7 @@ h6 {
 .navbar-toggler {
   z-index: 2;
 }
+
+.gameover {
+  text-align: center;
+}
