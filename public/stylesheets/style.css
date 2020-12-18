@@ -241,6 +241,17 @@ h6 {
   font-weight: 550;
 }
 
+.round-winner {
+  font-size: 1.75rem;
+  text-align: center;
+  padding-top: 5rem;
+  padding-left: .25rem;
+  padding-right: .25rem;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: .15rem;
+  font-weight: 525;
+}
+
 .winner {
   font-size: 1.25rem;
   text-align: center;
