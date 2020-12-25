@@ -33,7 +33,7 @@ let color = '#563d7c';
 //add disconnect check and remove from userlist
 //refactor majority of code
   //reduce global variables
-  //get rid of local storage uses for joining (probably replace with mySQL)
+  //get rid of local storage uses for joining (probably replace with mySQL post/get)
   //move more functionality to server side (and try not to overwelm heroku)
   //use destructuring in topCard.html() methods
   //clean up join game functions, add functions where necessary (overlap)
@@ -42,7 +42,6 @@ let color = '#563d7c';
 //Roadmap:
   //mid-game QOL (pause, edit settings)
   //more cards, import cards
-  //chat
 
 
 //new Lobby set up with
@@ -243,7 +242,7 @@ function getUserList() {
     }
   });
 }
-//updates user list when any user after the host joins
+//updates user list when any user after the host joins; should probably be two functions
 function updateUser(newUser) {
   $.get(`/api/gameroom/${thisGameId}`, function(data, status) {
     userList = JSON.parse(data[0].user_list);
@@ -255,6 +254,7 @@ function updateUser(newUser) {
     color = userReturn.color;
     userDisp.html(user);
     lobbyDisp.html(thisGameId);
+    //refactor into one if and statemnet
     if(!start){
         if (status === "success") {
             if (userList.length <= 8) {              
